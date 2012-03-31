@@ -14,6 +14,7 @@ import android.util.Log;
 
 import com.bump.api.IBumpAPI;
 import com.bump.api.BumpAPIIntents;
+import com.togetherness.R;
 
 public class KnuckleTouchAppActivity extends Activity {
 
@@ -23,7 +24,7 @@ public class KnuckleTouchAppActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		//setContentView(R.layout.main);
+		setContentView(R.layout.bump);
 
 		bindService(new Intent(IBumpAPI.class.getName()), connection, Context.BIND_AUTO_CREATE);
 
@@ -72,5 +73,13 @@ public class KnuckleTouchAppActivity extends Activity {
 			}
 		}
 	};
+	
+	
+	public void onDestroy() {
+        Log.i("BumpTest", "onDestroy");
+        unbindService(connection);
+        unregisterReceiver(receiver);
+        super.onDestroy();
+     }
 
 }

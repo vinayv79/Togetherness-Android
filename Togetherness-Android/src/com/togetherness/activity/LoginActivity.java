@@ -19,6 +19,7 @@ import android.os.Handler;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 public class LoginActivity extends Activity {
@@ -26,7 +27,7 @@ public class LoginActivity extends Activity {
 	private static final int SUCCESS_AUTH = 321;
 	private static final int CALL_TO_LANDING = 657;
 	private Facebook facebook;
-	private Button mFacebookLoginBtn;
+	private ImageButton mFacebookLoginBtn;
 	private OnClickListener mFbLoginClicklistener;
 	private SharedPreferences mSettings;
 	private Handler mhandler = new Handler();
@@ -41,7 +42,7 @@ public class LoginActivity extends Activity {
 		mSettings = getSharedPreferences("TogethernessSetting", 0);
 		facebook = new Facebook("246838415412064");
 
-		mFacebookLoginBtn = (Button) findViewById(R.id.main_login_button);
+		mFacebookLoginBtn = (ImageButton) findViewById(R.id.main_login_button);
 
 		initializeListener(); 
 		
