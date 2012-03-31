@@ -20,6 +20,7 @@ import com.togetherness.communication.TogethernessServerCommUtil;
 import com.togetherness.dm.TogethernessORMLiteHelper;
 import com.togetherness.entity.Friends;
 import com.togetherness.entity.UserTogetherMap;
+import com.togetherness.lazylist.ImageLoader;
 import com.togetherness.util.TogethernessConstants;
 
 import java.util.ArrayList;
@@ -48,12 +49,13 @@ public class StatusUpdateActivity extends Activity implements ViewSwitcher.ViewF
          setContentView(R.layout.status_update);
 
          if(getIntent().getExtras() != null){
-             Parcelable[] selectedFriendsArr =
-                     getIntent().getExtras().getParcelableArray(TogethernessConstants.SELECTED_FRIEND_LIST);
+             String friendFBID =
+                     getIntent().getExtras().getString("facebook_id");
 
-             if(selectedFriendsArr != null && selectedFriendsArr.length > 0){
-                 populateFriendPhotoFromORMLite(selectedFriendsArr);
-                 this.selectedFriends = getFriendsFromParcalable(selectedFriendsArr);
+             if(friendFBID != null){
+                 populateFriendPhoto(friendFBID);
+
+                 this.selectedFriends = getFriends(friendFBID);
              }
          } else{
              storeSampleBitmap();
@@ -70,8 +72,8 @@ public class StatusUpdateActivity extends Activity implements ViewSwitcher.ViewF
          }
          button.setOnClickListener(this);
 
-         Gallery g = (Gallery) findViewById(R.id.gallery);
-         g.setAdapter(new ImageAdapter(this));
+        /* Gallery g = (Gallery) findViewById(R.id.gallery);
+         g.setAdapter(new ImageAdapter(this));*/
 
      }
 
@@ -191,8 +193,8 @@ public class StatusUpdateActivity extends Activity implements ViewSwitcher.ViewF
 
     }
 
-    private void populateFriendPhotoFromORMLite(Parcelable[] friendsArray){
-        TogethernessORMLiteHelper togethernessORMLiteHelper =
+    private void populateFriendPhoto(String fbUserID){
+        /*TogethernessORMLiteHelper togethernessORMLiteHelper =
                 OpenHelperManager.getHelper(this, TogethernessORMLiteHelper.class);
 
         friendPhotoBitmap = new Bitmap[friendsArray.length];
@@ -204,7 +206,9 @@ public class StatusUpdateActivity extends Activity implements ViewSwitcher.ViewF
             if(friendPhoto != null){
                 friendPhotoBitmap[i] = parseByteArrayToBitmap(((Friends)friendPhoto.get(0)).getFriendPhoto());
             }
-        }
+        }*/
+        ImageLoader imgLoader = new ImageLoader(this.getApplicationContext(), 100, true);
+        //imgLoader.DisplayImage("https://graph.facebook.com/"+fbUserID+"?type=large", R.layout.status_update.imgView);
 
         OpenHelperManager.releaseHelper();
     }
@@ -262,12 +266,13 @@ public class StatusUpdateActivity extends Activity implements ViewSwitcher.ViewF
         return BitmapFactory.decodeByteArray(friendPhotoArray, 0, friendPhotoArray.length);
     }
     
-    private List<Friends> getFriendsFromParcalable(Parcelable[] parcelables){
+    private List<Friends> getFriends(String fbUserID){
         List<Friends> friendsList = new ArrayList<Friends>();
 
-        for(Parcelable parcelable: parcelables){
-            friendsList.add((Friends)parcelable);
-        }
+        Friends friend = new Friends();
+        friend.setLoggedInUserId(fbUserID);
+
+        friendsList.add(friend);
 
         return friendsList;
     }

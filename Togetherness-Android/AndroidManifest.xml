@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="com.togetherness"
-      android:versionCode="1"
-      android:versionName="1.0">
-    
-     <uses-sdk android:minSdkVersion="10" />
+    package="com.togetherness"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk android:minSdkVersion="10" />
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    
-    <application android:label="@string/app_name" android:icon="@drawable/ic_launcher">
-       
-         <service android:name="com.bump.api.BumpAPI" >
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name" >
+
+        <service android:name="com.bump.api.BumpAPI" >
             <intent-filter>
                 <action android:name="com.bump.api.IBumpAPI" />
             </intent-filter>
@@ -24,14 +27,28 @@
                   android:label="@string/app_name"
                   android:theme="@android:style/Theme.NoTitleBar"
                   >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+           </intent-filter>
         </activity>
-        <activity android:name=".activity.LoginActivity">
+        <activity
+            android:name=".activity.StatusUpdateActivity"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.NoTitleBar" >
+        </activity>
+        <activity
+            android:name=".activity.LoginActivity"
+            android:theme="@android:style/Theme.NoTitleBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            
         </activity>
-        <activity android:name=".activity.FriendsListActivity"></activity>
+        <activity
+            android:name=".activity.FriendsListActivity"
+            android:theme="@android:style/Theme.NoTitleBar" >
+        </activity>
     </application>
+
 </manifest>

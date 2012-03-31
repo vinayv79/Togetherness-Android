@@ -24,6 +24,8 @@
     </facet>
   </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <output url="file://$MODULE_DIR$/../out/production/Togetherness-Android" />
+    <output-test url="file://$MODULE_DIR$/../out/test" />
     <exclude-output />
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
@@ -31,7 +33,7 @@
     </content>
     <orderEntry type="jdk" jdkName="Android 4.0.3 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
           <root url="jar://$USER_HOME$/Vinay/ormlite/lib/ormlite-android-4.33.jar!/" />
@@ -40,7 +42,7 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
           <root url="jar://$USER_HOME$/Vinay/ormlite/lib/ormlite-core-4.33.jar!/" />
@@ -49,7 +51,7 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/libs/commons-codec-1.4.jar!/" />
@@ -58,7 +60,7 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/libs/commons-logging-1.1.1.jar!/" />
@@ -67,7 +69,7 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/libs/httpclient-4.1.3.jar!/" />
@@ -76,7 +78,7 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/libs/httpclient-cache-4.1.3.jar!/" />
@@ -85,7 +87,7 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/libs/httpcore-4.1.4.jar!/" />
@@ -94,7 +96,7 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/libs/httpmime-4.1.3.jar!/" />
@@ -103,8 +105,17 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module" module-name="Facebook" />
-    <orderEntry type="module" module-name="Bump-api-library" />
+    <orderEntry type="module" module-name="Facebook" exported="" />
+    <orderEntry type="module" module-name="Bump-api-library" exported="" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$USER_HOME$/Downloads/bumptech-bump-api-android-ea52699/bump-api-library/libs/bumpapi.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>
 
