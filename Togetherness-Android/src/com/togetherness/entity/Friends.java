@@ -3,6 +3,9 @@ package com.togetherness.entity;
 import android.graphics.Bitmap;
 import android.os.Parcelable;
 import android.os.Parcel;
+import com.j256.ormlite.field.DataType;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.types.ByteArrayType;
 import com.togetherness.util.TogethernessConstants;
 
 /**
@@ -14,10 +17,18 @@ import com.togetherness.util.TogethernessConstants;
  */
 public class Friends implements Parcelable{
 
+    @DatabaseField(id = true)
+    private String _id;
+
     public String loggedInUserId;
+
+    @DatabaseField
     public String friendsFBID;
     public String checkedInStatus;
-    public String friendPhoto;
+
+    @DatabaseField(dataType = DataType.BYTE_ARRAY)
+    public byte[] friendPhoto;
+
     public String currentLocation;
     
     public Friends(){
@@ -42,6 +53,7 @@ public class Friends implements Parcelable{
 
     public void setFriendsFBID(String friendsFBID) {
         this.friendsFBID = friendsFBID;
+        this._id = ""+friendsFBID;
     }
 
     public String getCheckedInStatus() {
@@ -52,11 +64,11 @@ public class Friends implements Parcelable{
         this.checkedInStatus = checkedInStatus;
     }
 
-    public String getFriendPhoto() {
+    public byte[] getFriendPhoto() {
         return friendPhoto;
     }
 
-    public void setFriendPhoto(String friendPhoto) {
+    public void setFriendPhoto(byte[] friendPhoto) {
         this.friendPhoto = friendPhoto;
     }
 
@@ -89,7 +101,7 @@ public class Friends implements Parcelable{
         dest.writeString(getLoggedInUserId());
         dest.writeString(getCheckedInStatus());
         dest.writeString(getCurrentLocation());
-        dest.writeString(getFriendPhoto());
+        dest.writeByteArray(getFriendPhoto());
     }
 
 
@@ -98,7 +110,9 @@ public class Friends implements Parcelable{
         setLoggedInUserId(parcel.readString());
         setCheckedInStatus(parcel.readString());
         setCurrentLocation(parcel.readString());
-        setFriendPhoto(parcel.readString());
+        int size = parcel.readInt();
+        this.friendPhoto = new byte[size];
+        parcel.readByteArray(friendPhoto);
     }
 
 }

@@ -50,7 +50,6 @@ public class UserTogetherMap {
 
     public void setFbUserId(String fbUserId) {
         this.fbUserId = fbUserId;
-        this._id = ""+fbUserId;
     }
 
     public String getTogetherUserId() {
@@ -59,6 +58,7 @@ public class UserTogetherMap {
 
     public void setTogetherUserId(String togetherUserId) {
         this.togetherUserId = togetherUserId;
+        this._id = ""+togetherUserId;
     }
 
     public String getTogetherStatus() {
