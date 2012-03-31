@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent">
+
+    <Gallery android:id="@+id/gallery"
+             android:background="#55000000"
+             android:layout_width="match_parent"
+             android:layout_height="60dp"
+             android:layout_alignParentBottom="true"
+             android:layout_alignParentLeft="true"
+             android:gravity="center_vertical"
+             android:spacing="16dp"
+            />
+
+    <EditText android:id="@+id/StatusUpdate" android:layout_width="280dp"
+              android:layout_height="50dp" android:lines="5" android:layout_centerInParent="true"
+              android:gravity="top|left" android:inputType="textMultiLine"
+              android:scrollHorizontally="false" android:minWidth="50.0dip"
+              android:maxWidth="180dip" />
+
+    <CheckBox android:id="@+id/post2FB"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_alignParentBottom="true"
+              android:text="@string/post2FB"/>
+
+    <Button android:id="@+id/updateBtn"
+            android:layout_width="150dip"
+            android:layout_height="50dip"
+            android:layout_alignParentBottom="true"
+            android:text="@string/updateBtn" />
+</LinearLayout>
