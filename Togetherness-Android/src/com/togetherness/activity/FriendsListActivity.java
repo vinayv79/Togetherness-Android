@@ -10,15 +10,18 @@ import com.togetherness.util.FacebookUtilities;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 public class FriendsListActivity extends Activity {
 
+	//private ImageView testImage;
+	
 	private Handler handler = new Handler();
 	private static final int LOADING_FRIENDS_ID = 12;
 	
@@ -30,6 +33,8 @@ public class FriendsListActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.friendslist);
+		
+		//testImage = (ImageView)findViewById(R.id.friendslist_test_imageview);
 		
 		initializeLayoutObject();
 		
@@ -73,6 +78,9 @@ public class FriendsListActivity extends Activity {
 	{
 		FriendsListAdapter adapter = new FriendsListAdapter(this, 0, friendsList);
 		mFriendsListView.setAdapter(adapter);
+		
+		String id = friendsList.get(0).getId();
+		FacebookUtilities.attemptGetFriendPicture(id, handler, this);
 	}
 
 
@@ -101,6 +109,29 @@ public class FriendsListActivity extends Activity {
 	protected void onPause() {
 		
 		super.onPause();
+	}
+
+
+	public void finishGetFacebookFriendProfile(FacebookProfile friendProfile) {
+		
+		if(friendProfile == null)
+		{
+			Toast.makeText(this, "Unable to retrieve, try later", Toast.LENGTH_LONG).show();
+		}
+		
+		
+		
+	}
+
+
+	public void finishGetFacebookFriendPicture(BitmapDrawable fbPicture) {
+		
+		if(fbPicture != null)
+		{
+			//testImage.setImageDrawable(fbPicture);
+		}
+		
+		
 	}
 	
 	

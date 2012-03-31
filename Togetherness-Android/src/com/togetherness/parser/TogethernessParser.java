@@ -57,5 +57,23 @@ public class TogethernessParser {
 		return null;
 		
 	}
+
+	public static FacebookProfile parseFacebookFriendProfile(String friendJsonString) {
+		
+		try {
+			JSONObject fbFriend = new JSONObject(friendJsonString);
+			
+			String id = fbFriend.getString("id");
+			String name = fbFriend.getString("name");
+			Boolean isMale = fbFriend.getString("gender").equals("male")?true:false;
+			
+			return new FacebookProfile(id, name, isMale);
+			
+		} catch (JSONException e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
 	
 }

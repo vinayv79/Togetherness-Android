@@ -5,7 +5,7 @@
  * should not be modified by hand.
  */
 
-package com.togetherness;
+package com.bump.api;
 
 public final class R {
     public static final class attr {
