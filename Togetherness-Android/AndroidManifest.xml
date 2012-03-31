@@ -14,17 +14,20 @@
     
     <application android:label="@string/app_name" android:icon="@drawable/ic_launcher">
        
-         <service android:name="com.bump.api.BumpAPI" >
+         <!--service android:name="com.bump.api.BumpAPI" >
             <intent-filter>
                 <action android:name="com.bump.api.IBumpAPI" />
             </intent-filter>
-        </service>
+        </service-->
         
         <activity android:name=".activity.StatusUpdateActivity"
                   android:label="@string/app_name"
                   android:theme="@android:style/Theme.NoTitleBar"
                   >
-            
+            <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".activity.LoginActivity">
             <intent-filter>

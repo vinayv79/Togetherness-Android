@@ -18,9 +18,11 @@ import com.togetherness.entity.UserTogetherMap;
 import com.togetherness.R;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by IntelliJ IDEA.
@@ -134,6 +136,20 @@ public class TogethernessORMLiteHelper extends OrmLiteSqliteOpenHelper {
         }
             
     }
+
+    public void storeUserTogetherMap(List<UserTogetherMap> userTogetherMapList){
+
+        try{
+            userTogetherRuntimeDAO = getUserTogetherRuntimeDao();
+
+            for(UserTogetherMap userTogetherMap: userTogetherMapList){
+                userTogetherRuntimeDAO.createOrUpdate(userTogetherMap);
+            }
+        }catch(SQLException sqe){
+            sqe.printStackTrace();
+        }
+
+    }
     
     public List<Friends> fetchFriendByID(String friendsFBID){
         List<Friends> friendList = null;
@@ -149,26 +165,45 @@ public class TogethernessORMLiteHelper extends OrmLiteSqliteOpenHelper {
         return friendList;
     }
     
-    public void updateAndComputeApartStatus(List<Friends> friendsList){
-        
+    public List<UserTogetherMap> updateAndComputeApartStatus(List<Friends> friendsList){
+        List<UserTogetherMap> userTogetherMapList = new ArrayList<UserTogetherMap>();
         try{
             userTogetherRuntimeDAO = getUserTogetherRuntimeDao();
             userTogetherDAO = getDao();
 
             //Get Current Time
-            Date date = GregorianCalendar.getInstance().getTime();
+            Date currentDate = GregorianCalendar.getInstance().getTime();
 
             for(Friends friend: friendsList){
                 UserTogetherMap userTogetherMap = new UserTogetherMap();
                 userTogetherMap.setTogetherUserId(friend.getFriendsFBID());
                 userTogetherMap.setFbUserId(friend.getLoggedInUserId());
                 userTogetherMap.setTogetherStatus("I");
-                List<UserTogetherMap> userTogetherMapList = userTogetherRuntimeDAO.queryForMatching(userTogetherMap);
+                List<UserTogetherMap> dbUserTogetherMapList = userTogetherRuntimeDAO.queryForMatching(userTogetherMap);
 
+                if(dbUserTogetherMapList != null && dbUserTogetherMapList.size() > 0){
+                    UserTogetherMap dbUserTogether = dbUserTogetherMapList.get(0);
+                    Date checkedInDate = dbUserTogether.getTogetherTimestamp();
+                    long togetherDuration = currentDate.getTime() - checkedInDate.getTime();
+                    dbUserTogether.setTogetherDuration(new Double(togetherDuration));
+                    dbUserTogether.setTogetherStatus("O");
+                    userTogetherRuntimeDAO.update(dbUserTogether);
+                    userTogetherMapList.add(dbUserTogether);
+                }
             }
         }catch(SQLException sqe){
             sqe.printStackTrace();
         }
+
+        return userTogetherMapList;
+    }
+
+    public String getTimeDiff(Date dateOne, Date dateTwo) {
+        String diff = "";
+        long timeDiff = Math.abs(dateOne.getTime() - dateTwo.getTime());
+        diff = String.format("%d hour(s) %d min(s)", TimeUnit.MILLISECONDS.toHours(timeDiff),
+                TimeUnit.MILLISECONDS.toMinutes(timeDiff) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(timeDiff)));
+        return diff;
     }
     
     /**

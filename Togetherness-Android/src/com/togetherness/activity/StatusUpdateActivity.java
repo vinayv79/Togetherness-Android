@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Date;
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.*;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.togetherness.R;
+import com.togetherness.communication.TogethernessServerCommUtil;
 import com.togetherness.dm.TogethernessORMLiteHelper;
 import com.togetherness.entity.Friends;
 import com.togetherness.entity.UserTogetherMap;
@@ -53,6 +55,9 @@ public class StatusUpdateActivity extends Activity implements ViewSwitcher.ViewF
                  populateFriendPhotoFromORMLite(selectedFriendsArr);
                  this.selectedFriends = getFriendsFromParcalable(selectedFriendsArr);
              }
+         } else{
+             storeSampleBitmap();
+            // populateFriendPhotoFromORMLite();
          }
 
          isTogether = isAlreadyTogether(selectedFriends);
@@ -82,7 +87,7 @@ public class StatusUpdateActivity extends Activity implements ViewSwitcher.ViewF
         if(!isTogether){
              updateTogetherStatus();
         }else{
-
+             updateApartStatus();
         }
 
     }
@@ -105,22 +110,42 @@ public class StatusUpdateActivity extends Activity implements ViewSwitcher.ViewF
             userTogetherMap.setFbUserId(friend.getLoggedInUserId());
             userTogetherMap.setTogetherUserId(friend.getFriendsFBID());
             userTogetherMap.setTogetherMessage((msg != null) ? msg : "");
-            userTogetherMap.setTogetherStatus(friend.getCheckedInStatus());
+            userTogetherMap.setTogetherStatus("I");
             userTogetherMap.setTogetherTimestamp(date);
 
             userTogetherMapList.add(userTogetherMap);
         }
+
+        TogethernessORMLiteHelper togethernessORMLiteHelper =
+                OpenHelperManager.getHelper(this, TogethernessORMLiteHelper.class);
+
+        togethernessORMLiteHelper.storeUserTogetherMap(userTogetherMapList);
+
+        SharedPreferences setting = getSharedPreferences("TogethernessSetting", 0);
+        long fbUserToken = setting.getLong("fbAccessToken", 0);
+
+        TogethernessServerCommUtil.postMessageToServer(fbUserToken, userTogetherMapList);
+
+        OpenHelperManager.releaseHelper();
+
     }
 
+    /**
+     * Post Apart msg to Server & also store it in local DB.
+     */
     private void updateApartStatus(){
         TogethernessORMLiteHelper togethernessORMLiteHelper =
                 OpenHelperManager.getHelper(this, TogethernessORMLiteHelper.class);
 
-        togethernessORMLiteHelper.updateAndComputeApartStatus(selectedFriends);
+        List<UserTogetherMap> updatedUserTogethernessList = togethernessORMLiteHelper.updateAndComputeApartStatus(selectedFriends);
+
+        SharedPreferences setting = getSharedPreferences("TogethernessSetting", 0);
+        long fbUserToken = setting.getLong("fbAccessToken", 0);
+
+        TogethernessServerCommUtil.postMessageToServer(fbUserToken, updatedUserTogethernessList);
 
         OpenHelperManager.releaseHelper();
 
-        //http://localhost:8080/api/together/oAuthToken||UserId||Friend1!!Friend2||yyMMddhhmmss||CheckInStatus(I/O)||Message
     }
 
     public View makeView() {
@@ -197,10 +222,10 @@ public class StatusUpdateActivity extends Activity implements ViewSwitcher.ViewF
 
         for(Friends friend: friendsList){
             List<UserTogetherMap> userTogetherMap = togethernessORMLiteHelper.fetchUserTogetherMapByID(friend.getFriendsFBID());
-            if(userTogetherMap != null){
+            if(userTogetherMap != null && userTogetherMap.size() > 0){
                 String togetherStatus = ((UserTogetherMap)userTogetherMap.get(0)).getTogetherStatus();
                 
-                if(togetherStatus != null && togetherStatus.trim().equalsIgnoreCase("Y")){
+                if(togetherStatus != null && togetherStatus.trim().equalsIgnoreCase("I")){
                     isTogether = true;
                     break;
                 }
@@ -221,6 +246,8 @@ public class StatusUpdateActivity extends Activity implements ViewSwitcher.ViewF
 
         List<Friends> list = new ArrayList<Friends>();
         list.add(friends);
+
+        selectedFriends = list;
 
         TogethernessORMLiteHelper togethernessORMLiteHelper =
                 OpenHelperManager.getHelper(this, TogethernessORMLiteHelper.class);
