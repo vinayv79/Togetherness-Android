@@ -3,13 +3,36 @@
       package="com.togetherness"
       android:versionCode="1"
       android:versionName="1.0">
+    
+     <uses-sdk android:minSdkVersion="10" />
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    
     <application android:label="@string/app_name" android:icon="@drawable/ic_launcher">
+       
+         <service android:name="com.bump.api.BumpAPI" >
+            <intent-filter>
+                <action android:name="com.bump.api.IBumpAPI" />
+            </intent-filter>
+        </service>
+        
         <activity android:name=".activity.StatusUpdateActivity"
-                  android:label="@string/app_name">
+                  android:label="@string/app_name"
+                  android:theme="@android:style/Theme.NoTitleBar"
+                  >
+            
+        </activity>
+        <activity android:name=".activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            
         </activity>
+        <activity android:name=".activity.FriendsListActivity"></activity>
     </application>
 </manifest>
