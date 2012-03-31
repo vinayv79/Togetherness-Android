@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="gen"/>
+	<classpathentry kind="lib" path="C:/Users/VHanded/Documents/workspace/Togetherness-Android/Togetherness-Android/libs/ormlite-android-4.38.jar"/>
+	<classpathentry kind="lib" path="C:/Users/VHanded/Documents/workspace/Togetherness-Android/Togetherness-Android/libs/ormlite-core-4.38.jar"/>
+	<classpathentry kind="lib" path="C:/Users/VHanded/Documents/workspace/Togetherness-Android/Togetherness-Android/libs/httpclient-4.1.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/VHanded/Documents/workspace/Togetherness-Android/Togetherness-Android/libs/httpmime-4.1.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/VHanded/Documents/workspace/Togetherness-Android/Togetherness-Android/libs/httpclient-cache-4.1.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/VHanded/Documents/workspace/Togetherness-Android/Togetherness-Android/libs/httpcore-4.1.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/VHanded/Documents/workspace/Togetherness-Android/Togetherness-Android/libs/commons-codec-1.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/VHanded/Documents/workspace/Togetherness-Android/Togetherness-Android/libs/commons-logging-1.1.1.jar"/>
+	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
+	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
+	<classpathentry kind="output" path="bin/classes"/>
+</classpath>

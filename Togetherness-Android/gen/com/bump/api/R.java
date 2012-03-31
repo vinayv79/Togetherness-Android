@@ -5,25 +5,17 @@
  * should not be modified by hand.
  */
 
-package com.togetherness;
+package com.bump.api;
 
 public final class R {
     public static final class attr {
     }
     public static final class drawable {
-        public static final int ic_launcher=0x7f020000;
-        public static final int icon=0x7f020001;
-        public static final int icon2x=0x7f020002;
-        public static final int logo_t=0x7f020003;
-        public static final int sample_thumb_0=0x7f020004;
-        public static final int sample_thumb_1=0x7f020005;
-        public static final int togetherness_bye=0x7f020006;
-        public static final int togetherness_friend=0x7f020007;
-        public static final int togetherness_login=0x7f020008;
-        public static final int togetherness_meet=0x7f020009;
-        public static final int togetherness_partner_bye=0x7f02000a;
-        public static final int togetherness_partner_met=0x7f02000b;
-        public static final int togetherness_stat=0x7f02000c;
+        public static final int close=0x7f020000;
+        public static final int facebook_icon=0x7f020001;
+        public static final int ic_launcher=0x7f020002;
+        public static final int sample_thumb_0=0x7f020003;
+        public static final int sample_thumb_1=0x7f020004;
     }
     public static final class id {
         public static final int StatusUpdate=0x7f060005;
