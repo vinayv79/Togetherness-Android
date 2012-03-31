@@ -124,7 +124,8 @@ public class StatusUpdateActivity extends Activity implements ViewSwitcher.ViewF
         SharedPreferences setting = getSharedPreferences("TogethernessSetting", 0);
         long fbUserToken = setting.getLong("fbAccessToken", 0);
 
-        TogethernessServerCommUtil.postMessageToServer(fbUserToken, userTogetherMapList);
+        TogethernessServerCommUtil  serverComUtil = new TogethernessServerCommUtil(fbUserToken, userTogetherMapList);
+        serverComUtil.execute();
 
         OpenHelperManager.releaseHelper();
 
@@ -142,7 +143,8 @@ public class StatusUpdateActivity extends Activity implements ViewSwitcher.ViewF
         SharedPreferences setting = getSharedPreferences("TogethernessSetting", 0);
         long fbUserToken = setting.getLong("fbAccessToken", 0);
 
-        TogethernessServerCommUtil.postMessageToServer(fbUserToken, updatedUserTogethernessList);
+        TogethernessServerCommUtil  serverComUtil = new TogethernessServerCommUtil(fbUserToken, updatedUserTogethernessList);
+        serverComUtil.execute();
 
         OpenHelperManager.releaseHelper();
 
